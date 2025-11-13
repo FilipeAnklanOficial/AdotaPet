@@ -1,4 +1,8 @@
 import java.util.Scanner;
+import Enums.Status;
+import Enums.Sexo;
+import Enums.Especie;
+import Enums.Porte;
 
 public class UsuarioONG {
 

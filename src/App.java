@@ -1,4 +1,9 @@
-public class PrincipalAnimal {
+import Enums.Status;
+import Enums.Sexo;
+import Enums.Especie;
+import Enums.Porte;
+
+public class App {
 
     public static void main(String[] args) {
 
@@ -14,10 +19,10 @@ public class PrincipalAnimal {
             false,
             "Sabáudia-PR",
             true,
-            Animal.Especie.GATO,
-            Animal.Porte.PEQUENO,
-            Animal.Sexo.FEMEA,
-            Animal.Status.DISPONIVEL);
+            Especie.GATO,
+            Porte.PEQUENO,
+            Sexo.FEMEA,
+            Status.DISPONIVEL);
     Animal animal1 = new Animal();
 
     //ANIMAL 2 - PREENCHIDO POR MÉTODOS SETS
@@ -31,14 +36,14 @@ public class PrincipalAnimal {
     animal1.setPossuiChip(false);
     animal1.setLocalizacao("Arapongas-PR");
     animal1.setVacinado(true);
-    animal1.setSexo(Animal.Sexo.FEMEA);
-    animal1.setEspecie(Animal.Especie.CACHORRO);
-    animal1.setPorte(Animal.Porte.GRANDE);
-    animal1.setStatus(Animal.Status.DISPONIVEL);
+    animal1.setSexo(Sexo.FEMEA);
+    animal1.setEspecie(Especie.CACHORRO);
+    animal1.setPorte(Porte.GRANDE);
+    animal1.setStatus(Status.DISPONIVEL);
 
     //EXIBI INFORMAÇÕES DOS ANIMAIS CADASTRADOS
-    animal.exibiInformacoes();
-    animal1.exibiInformacoes();
-
+        System.out.println(animal.getIdade());
+        animal.setIdade(0.6);
+        System.out.println(animal.getIdade());
     }
 }

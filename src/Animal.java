@@ -1,16 +1,15 @@
+import Enums.Status;
+import Enums.Sexo;
+import Enums.Especie;
+import Enums.Porte;
+
 public class Animal {
 
-    //ENUMS da Classe
-    public enum Especie {CACHORRO, GATO}
-    public enum Porte {PEQUENO, MEDIO, GRANDE}
-    public enum Sexo {MACHO, FEMEA}
-    public enum Status {DISPONIVEL, ADOTADO, EM_ANDAMENTO}
-
     // Atributos da Classe
-    private int id;
+    private long id;
     private String nome;
     private String raca;
-    private int idade;
+    private double idade;
     private String historicoSaude;
     private String comportamento;
     private String fotos;
@@ -21,15 +20,15 @@ public class Animal {
     private Porte porte;
     private Sexo sexo;
     private Status status;
-
-    //TODO private UsuarioONG ongResponsavel;
-    //TODO IMPLEMENTAR ongResponsavel: USUARIO_ONG NO OBJETO ANIMAL
+    private UsuarioONG ongResponsavel;
 
     //Construtor Vazio
-    public Animal() {}
+    public Animal() {
+        
+    }
 
     //Construtor com parâmetros
-    public Animal (int id, String nome, String raca, int idade, String historicoSaude, String comportamento, String fotos, boolean possuiChip, String localizacao, boolean vacinado, Especie especie, Porte porte, Sexo sexo, Status status /*TODO, UsuarioONG ongResponsavel*/) {
+    public Animal (long id, String nome, String raca, double idade, String historicoSaude, String comportamento, String fotos, boolean possuiChip, String localizacao, boolean vacinado, Especie especie, Porte porte, Sexo sexo, Status status /*UsuarioONG ongResponsavel*/) {
 
         this.id = id;
         this.nome = nome;
@@ -45,12 +44,12 @@ public class Animal {
         this.porte = porte;
         this.sexo = sexo;
         this.status = status;
-        //TODO this.ongResponsavel = ongResponsavel
+        this.ongResponsavel = ongResponsavel;
 
     }
 
     //SETTERS
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
     public void setNome(String nome) {
@@ -59,9 +58,14 @@ public class Animal {
     public void setRaca(String raca) {
         this.raca = raca;
     }
-    public void setIdade(int idade) {
-        this.idade = idade;
+    public void setIdade(double idade) {
+        if (idade < 0 || idade > 30) {
+            System.out.println("Idade Invalida, informe uma idade entre 0 e 30 anos");
+        }else{
+            this.idade = idade;
+        }
     }
+        
     public void setHistoricoSaude(String historicoSaude) {
         this.historicoSaude = historicoSaude;
     }
@@ -92,12 +96,13 @@ public class Animal {
     public void setStatus(Status status) {
         this.status = status;
     }
-    //TODO public void setOngResponsavel(UsuarioONG ongResponsavel){
-    // this.ongResponsavel = ongResponsavel}
+    public void setOngResponsavel(UsuarioONG ongResponsavel){
+        this.ongResponsavel = ongResponsavel;
+    }
 
 
     //GETTERS
-    public int getId() {
+    public long getId() {
         return id;
     }
     public String getNome() {
@@ -106,7 +111,7 @@ public class Animal {
     public String getRaca() {
         return raca;
     }
-    public int getIdade() {
+    public double getIdade() {
         return idade;
     }
     public String getHistoricoSaude() {
@@ -139,13 +144,12 @@ public class Animal {
     public Status getStatus() {
         return status;
     }
+    public UsuarioONG getOngResponsavel() {
+    return ongResponsavel;
+    }
 
-    //TODO public UsuarioONG getOngResponsavel() {
-    // return ongResponsavel;
-    // }
 
-
-    void exibiInformacoes(){
+    void exibirInformacoes(){
         System.out.println("---*---*---*---*---*---*---*---*---");
         System.out.println("Informações do animal");
         System.out.println("ID: " + getId());
@@ -162,7 +166,31 @@ public class Animal {
         System.out.println("Porte: " + getPorte());
         System.out.println("Sexo: " + getSexo());
         System.out.println("Status: " + getStatus());
-        //TODO System.out.println("ONG Responsável: " + getOngResponsavel());
-
+        System.out.println("ONG Responsável: " + getOngResponsavel());
     }
+
+    public void atualizarStatus(Status novoStatus){
+        System.out.println("--* Atualizar Status de animal *--");
+        System.out.println("Status atual: " + this.status);
+        System.out.println("Novo Status Desejado: " + novoStatus);
+
+        if (this.status == Status.DISPONIVEL && novoStatus == Status.EM_ANDAMENTO) {
+            this.status = novoStatus;
+            System.out.println("Adoção iniciada com suceso!");
+        }else if (this.status == Status.EM_ANDAMENTO && novoStatus == Status.DISPONIVEL) {
+            this.status = novoStatus;
+            System.out.println("Adoção cancelada. :( ");
+        }else if (this.status == Status.EM_ANDAMENTO && novoStatus == Status.ADOTADO) {
+            this.status = novoStatus;
+            System.out.println("Adoção finalizada com sucesso!!!");
+        }else if (this.status == Status.ADOTADO && novoStatus == Status.DISPONIVEL) {
+            System.out.println("Não é possivel retornar o Status ADOTADO para DISPONIVEL");
+        }else if (this.status == novoStatus) {
+            System.out.println("o Animal ja está com o Status: " + novoStatus);
+        }else {
+            System.out.println("Alteração de Status inválida!");
+        }
+    }
+
+
 }
