@@ -2,13 +2,10 @@
 *.class
 
 # Build directories
-/out/
-/bin/
 /target/
 
 # IDEs
 /.idea/
-/.vscode/
 
 # OS
 .DS_Store
