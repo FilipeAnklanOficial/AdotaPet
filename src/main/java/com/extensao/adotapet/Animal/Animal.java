@@ -1,0 +1,66 @@
+package com.extensao.adotapet.Animal;
+
+import com.extensao.adotapet.Enum.Status;
+import com.extensao.adotapet.Enum.Sexo;
+import com.extensao.adotapet.Enum.Especie;
+import com.extensao.adotapet.Enum.Porte;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.*;
+
+@Table(name = "animal")
+@Entity(name = "animal")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(of = "id")
+public class Animal {
+
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    private String nome;
+    private String raca;
+    private double idade;
+    private String historicoSaude;
+    private String comportamento;
+    private String fotos;
+    private boolean possuiChip;
+    private String localizacao;
+    private boolean vacinado;
+
+    @Enumerated(EnumType.STRING)
+    private Especie especie;
+
+    @Enumerated(EnumType.STRING)
+    private Porte porte;
+
+    @Enumerated(EnumType.STRING)
+    private Sexo sexo;
+
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
+    public Animal(AnimalRequestDTO data){
+        this.nome = data.nome();
+        this.raca = data.raca();
+        this.idade = data.idade();
+        this.historicoSaude = data.historicoSaude();
+        this.comportamento = data.comportamento();
+        this.fotos = data.fotos();
+        this.possuiChip = data.possuiChip();
+        this.localizacao = data.localizacao();
+        this.vacinado = data.vacinado();
+        this.especie = data.especie();
+        this.porte = data.porte();
+        this.sexo = data.sexo();
+        this.status = data.status();
+    }
+}
