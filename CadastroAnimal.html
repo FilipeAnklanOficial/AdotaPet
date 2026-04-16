@@ -50,10 +50,10 @@
         background-color: white;
         box-shadow: 0px 0px 24px rgba(0, 0, 0, 0.25);
 
-        width: 440px;
+        width: 500px;
         height: 100%;
         margin: 30px auto;
-        padding: 30px 10px;
+        padding: 30px 30px;
 
         display: flex;
         flex-direction: column;
@@ -80,10 +80,6 @@
         font-size: 16px;
       }
 
-      div#divCadastro > input {
-        font-family: "Inter", sans-serif;
-      }
-
       div#divCadastro a {
         text-decoration: none;
       }
@@ -93,77 +89,86 @@
       }
 
       div#divCadastro > h1 {
-        font-family: "Inter", sans-serif;
         font-size: 32px;
         font-weight: 700;
 
         margin: 0px;
+        align-self: flex-start;
       }
 
-      input.Email {
-        border: none;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.5);
-        outline: none;
-        width: 300px;
-
-        font-family: "Inter", sans-serif;
+      form label,
+      label#nomeCompleto {
+        display: block;
+        text-align: left;
+        margin: 20px 0 10px 0;
         font-size: 16px;
-
-        margin: 0px 161px 53px 161px;
-        padding: 0px 0px 11px 0px;
       }
 
-      input.Email::placeholder {
-        color: rgba(0, 0, 0, 0.5);
-        text-align: center;
+      label#nomeCompleto {
+        margin: 0px 0 10px 0;
       }
 
-      input.Senha {
+      form input,
+      input#nomeCompleto{
+        background-color: rgba(0, 0, 0, 0.08);
+
+        border-radius: 25px;
         border: none;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.5);
-        outline: none;
-        width: 300px;
+        transition: border-color 0.25s ease;
+        border: 3px solid transparent;
 
-        font-family: "Inter", sans-serif;
+        padding: 10px 12px;
+
         font-size: 16px;
-
-        margin: 0px 201px 33px 201px;
-        padding: 0px 0px 11px 0px;
       }
 
-      input.Senha::placeholder {
+      form input{
+        height: 25px;
+        width: 90%;
+      }
+
+      input#nomeCompleto {
+        height: 25px;
+        width: 93%;
+      }
+
+      form input:focus,
+      input#nomeCompleto:focus {
+        border-color: #36c3ff;
+        outline: none;
+      }
+
+      input::placeholder {
         color: rgba(0, 0, 0, 0.5);
-        text-align: center;
+        text-align: left;
       }
 
-      input.bottomLogin {
-        font-family: "Inter", sans-serif;
+      button.buttonCadastro {
         background-color: #36c3ff;
-        border: none;
         color: white;
+
         border-radius: 20px;
+        border: none;
+
+        font-family: "Inter", sans-serif;
         font-weight: 300;
 
         /* Mantive o flex, mas o correto é definir display flex no pai.
        Se você quer centralizar o texto, use text-align/line-height */
-        display: inline-block;
         text-align: center;
-        line-height: 35px;
-
-        margin: 0 175px 41px 175px;
+        margin: 32px 0px 41px 0px;
         width: 100px;
         height: 35px;
 
-        cursor: pointer; /* mostra o ponteiro */
-        position: relative; /* necessário p/ z-index */
-        z-index: 10; /* garante que fique acima */
+        cursor: pointer; /* mostra o ponteiro *//
       }
+
       /* Efeito botão */
       .toggle {
         position: relative;
         width: 132px;
         height: 37px;
-        margin: 59px 155px 73px 155px;
+        margin: 32px 0px 32px 0px;
 
         background: #fff;
         border-radius: 20px;
@@ -220,8 +225,37 @@
         color: #fff;
       }
 
-      form {
+      form#meuFormContainer {
+        margin: 0px;
+        padding: 0px;
+        gap: 20px;
+
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+
+        width: 100%;
+      }
+
+      div#meuFormEsquerdo,
+      div#meuFormDireito {
+        margin: 0px;
+        padding: 0px;
+
         text-align: center;
+        flex-direction: column;
+        width: 100%;
+      }
+
+      #divCadastro p {
+        width: 100%;
+        text-align: center;
+        margin: 20px 0 0 0;
+      }
+
+      #divCadastro p > a {
+        color: black;
+        font-weight: bold;
       }
     </style>
   </head>
@@ -254,30 +288,72 @@
             <label class="option" for="usuario">Usuário</label>
             <label class="option" for="ong">ONG</label>
           </div>
-          <form action="/" method="post">
-            <input
-              class="Email"
-              type="text"
-              name="login"
-              autocomplete="off"
-              tabindex="0"
-              placeholder="Digite seu e-mail"
-            />
-            <input
-              class="Senha"
-              type="password"
-              name="password"
-              autocomplete="off"
-              tabindex="0"
-              placeholder="Senha"
-            />
-            <input class="bottomLogin" type="submit" value="Log in" />
+          <label id="nomeCompleto" for="nomeCompleto" style="text-align: left;">Nome completo</label>
+          <input
+            id="nomeCompleto"
+            type="text"
+            name="nomeCompleto"
+            placeholder="Seu nome completo"
+          />
+          <form id="meuFormContainer" action="/" method="post">
+            <div id="meuFormEsquerdo">
+              <label for="nomeUsuario">Nome de usuário</label>
+              <input
+                type="text"
+                name="nomeUsuario"
+                autocomplete="off"
+                tabindex="0"
+                placeholder="Digite seu nome"
+              />
+              <label for="login">Telefone</label>
+              <input
+                type="tel"
+                name="login"
+                autocomplete="off"
+                tabindex="0"
+                placeholder="(xx) xxxxx-xxxx"
+              />
+              <label for="password">Senha</label>
+              <input
+                type="password"
+                name="password"
+                autocomplete="off"
+                tabindex="0"
+                placeholder="●●●●●●●"
+              />
+            </div>
+            <div id="meuFormDireito">
+              <label for="nomeUsuario">E-mail</label>
+              <input
+                type="email"
+                name="nomeUsuario"
+                autocomplete="off"
+                tabindex="0"
+                placeholder="Digite seu e-mail"
+              />
+              <label for="login">Data de Nascimento</label>
+              <input
+                type="date"
+                name="dataNascimento"
+                autocomplete="off"
+                tabindex="0"
+              />
+              <label for="password">Confirmar Senha</label>
+              <input
+                type="password"
+                name="password"
+                autocomplete="off"
+                tabindex="0"
+                placeholder="●●●●●●●"
+              />
+            </div>
           </form>
-          <p style="margin: 0px 0px 10px 0px;">
+          <button class="buttonCadastro" type="button" value="Cadastrar">
+            Cadastrar
+          </button>
+          <p>
             Já tem uma conta?
-            <a href="login.html" style="color: black; font-weight: bold; margin: 0px 0px 10px 0px;"
-              >Fazer login</a
-            >
+            <a href="login.html">Fazer login</a>
           </p>
         </div>
       </div>
