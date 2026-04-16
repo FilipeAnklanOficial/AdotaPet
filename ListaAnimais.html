@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Adotar</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+      @import url("https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+      body {
+        font-family: "Inter", "Courier Prime", sans-serif;
+        background-color: #f8fafc;
+        margin: 0px;
+        padding: 0px;
+      }
+
+      header {
+        width: 100%;
+        padding: 38px 50px 17px 50px;
+        font-family: 'Courier New', Courier, monospace;
+
+
+        background-color: red;
+      }
+
+      nav{
+        display: flex;
+        align-items: center;
+        width: 100%;
+      }
+
+      nav > a > img{
+        width: 80px;
+        height: 70px;
+      }
+
+      nav > a{
+        text-decoration: none;
+        font-size: 16px;
+        color: black;
+
+        margin-left: 42px;
+      }
+
+      nav a:hover{
+        text-decoration: underline;
+      }
+
+      button{
+        margin-left: 10px;
+      }
+      
+      div#container {
+        width: 100%;
+        padding: 0px;
+
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+      }
+
+      div#divFiltros {
+        background-color: green;
+
+        width: 20%;
+        height: 100%;
+
+        padding: 30px;
+        margin-left: 40px;
+        margin-right: 60px;
+
+        display: flex;
+        justify-content: column;
+      }
+
+      div#divListaAnimais {
+        background-color: violet;
+
+        width: 100%;
+        height: 100%;
+
+        display: flex;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        padding: 30px;
+
+        margin-right: 40px;
+       
+      }
+
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="HomePage.html"><img src="imagens/logoMelhor.png" alt="Logo"></a>
+        <a href="ListaAnimais.html">Adotar</a>
+        <a href="HomePage.html">Sobre</a>
+        <a href="HomePage.html">F.A.Q</a>
+        <button>Icone</button>
+      </nav>
+    </header>
+    <div id="container">
+      <div id="divFiltros">
+
+      </div>
+      <div id="divListaAnimais">
+    </div>
+  </body>
+</html>

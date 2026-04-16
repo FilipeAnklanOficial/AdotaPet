@@ -59,6 +59,7 @@
         flex-direction: column;
         align-items: center;
 
+        text-align: start;
         border-radius: 20px;
       }
 
@@ -99,7 +100,6 @@
       form label,
       label#nomeCompleto {
         display: block;
-        text-align: left;
         margin: 20px 0 10px 0;
         font-size: 16px;
       }
@@ -242,7 +242,7 @@
         margin: 0px;
         padding: 0px;
 
-        text-align: center;
+        text-align: left;
         flex-direction: column;
         width: 100%;
       }
@@ -261,10 +261,8 @@
   </head>
   <body>
     <header>
-      <nav>
-        <a href="HomePage.html">Home</a>
-        <a href="HomePage.html">Sobre</a>
-        <a style="margin-right: 72px" href="#">F.A.Q</a>
+      <nav id="menu">
+
       </nav>
     </header>
     <div id="container">
@@ -284,26 +282,24 @@
             <input type="radio" id="usuario" name="toggle" checked />
             <input type="radio" id="ong" name="toggle" />
             <div class="slider"></div>
-
             <label class="option" for="usuario">Usuário</label>
             <label class="option" for="ong">ONG</label>
           </div>
-          <label id="nomeCompleto" for="nomeCompleto" style="text-align: left;">Nome completo</label>
-          <input
-            id="nomeCompleto"
-            type="text"
-            name="nomeCompleto"
-            placeholder="Seu nome completo"
-          />
           <form id="meuFormContainer" action="/" method="post">
             <div id="meuFormEsquerdo">
-              <label for="nomeUsuario">Nome de usuário</label>
+              <label  for="nomeCompleto">Nome do responsável</label>
+              <input
+                type="text"
+                name="nomeCompleto"
+                placeholder="Seu nome completo"
+              />
+              <label for="nomeUsuario">Nome da ONG</label>
               <input
                 type="text"
                 name="nomeUsuario"
                 autocomplete="off"
                 tabindex="0"
-                placeholder="Digite seu nome"
+                placeholder="Digite o nome da ONG"
               />
               <label for="login">Telefone</label>
               <input
@@ -338,6 +334,14 @@
                 autocomplete="off"
                 tabindex="0"
               />
+              <label for="login">CNPJ</label>
+              <input
+                type="text"
+                name="cnpj"
+                autocomplete="off"
+                tabindex="0"
+                placeholder="xx.xxx.xxx/xxxx-xx"
+              />
               <label for="password">Confirmar Senha</label>
               <input
                 type="password"
@@ -360,4 +364,21 @@
       <img src="./imagens/cachorro.png" alt="cachorro" />
     </div>
   </body>
+<script>
+  const navigation = [
+    { name: "Home", href: "HomePage.html" },
+    { name: "Sobre", href: "HomePage.html" },
+    { name: "F.A.Q", href: "#" },
+  ];
+
+  const menu = document.getElementById("menu");
+
+  navigation.forEach((item) => {
+    const link = document.createElement("a");
+    link.href = item.href;
+    link.textContent = item.name;
+
+    menu.appendChild(link);
+  });
+</script>
 </html>
