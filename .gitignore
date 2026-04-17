@@ -4,13 +4,6 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
-<<<<<<< Updated upstream
-# Build directories
-/target/
-
-# IDEs
-/.idea/
-=======
 ### STS ###
 .apt_generated
 .classpath
@@ -25,7 +18,6 @@ target/
 *.iws
 *.iml
 *.ipr
->>>>>>> Stashed changes
 
 ### NetBeans ###
 /nbproject/private/

@@ -63,4 +63,5 @@ public class Animal {
         this.sexo = data.sexo();
         this.status = data.status();
     }
+
 }

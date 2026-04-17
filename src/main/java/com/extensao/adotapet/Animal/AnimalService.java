@@ -1,0 +1,111 @@
+package com.extensao.adotapet.Animal;
+
+import com.extensao.adotapet.Enum.Especie;
+import com.extensao.adotapet.Enum.Porte;
+import com.extensao.adotapet.Enum.Sexo;
+import com.extensao.adotapet.Enum.Status;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+
+import java.util.List;
+
+@Service
+public class AnimalService {
+
+    @Autowired
+    private AnimalRepository repository;
+
+    public void cadastrarAnimal(AnimalRequestDTO data){
+        Animal animalData = new Animal(data);
+        repository.save(animalData);
+    }
+
+    public List<AnimalResponseDTO> getAll() {
+        return repository.findAll()
+                .stream()
+                .map(AnimalResponseDTO::new)
+                .toList();
+    }
+
+    public AnimalResponseDTO getById(Long id){
+        Animal animal = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Animal não encontrado"));
+        return new AnimalResponseDTO(animal);
+    }
+
+    public void deleteById(Long id){
+        Animal animal = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Animal não encontrado"));
+        repository.delete(animal);
+    }
+
+    @PutMapping("/{id}/inativar")
+    public void inativar(@PathVariable Long id){
+        Animal animal = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Animal não encontrado"));
+        animal.setStatus(Status.INATIVO);
+        repository.save(animal);
+    }
+
+    @PutMapping("/{id}/ativar")
+    public void ativar(@PathVariable Long id){
+        Animal animal = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Animal não encontrado"));
+        animal.setStatus(Status.DISPONIVEL);
+        repository.save(animal);
+    }
+
+    public AnimalResponseDTO atualizaParcial(Long id, AnimalUpdateDTO dto) {
+        Animal animal = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Animal não encontrado"));
+
+        if (animal.getStatus() == Status.ADOTADO || animal.getStatus() == Status.INATIVO) {
+            throw new RuntimeException("Não é possível editar um Animal Adotado ou Inativo");
+        }
+        if (dto.getNome() != null) {
+            animal.setNome(dto.getNome());
+        }
+        if (dto.getRaca() != null) {
+            animal.setRaca(dto.getRaca());
+        }
+        if (dto.getIdade() != null) {
+            animal.setIdade(dto.getIdade());
+        }
+        if (dto.getHistoricoSaude() != null) {
+            animal.setHistoricoSaude(dto.getHistoricoSaude());
+        }
+        if (dto.getComportamento() != null) {
+            animal.setComportamento(dto.getComportamento());
+        }
+        if (dto.getFotos() != null) {
+            animal.setFotos(dto.getFotos());
+        }
+        if (dto.getPossuiChip() != null) {
+            animal.setPossuiChip(dto.getPossuiChip());
+        }
+        if (dto.getLocalizacao() != null) {
+            animal.setLocalizacao(dto.getLocalizacao());
+        }
+        if (dto.getVacinado() != null) {
+            animal.setVacinado(dto.getVacinado());
+        }
+        if (dto.getEspecie() != null){
+            animal.setEspecie(dto.getEspecie());
+        }
+        if (dto.getPorte() != null){
+            animal.setPorte(dto.getPorte());
+        }
+        if (dto.getSexo() != null){
+            animal.setSexo(dto.getSexo());
+        }
+        if (dto.getStatus() != null){
+            animal.setStatus(dto.getStatus());
+        }
+        repository.save(animal);
+        return new AnimalResponseDTO(animal);
+    }
+}
