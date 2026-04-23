@@ -14,11 +14,11 @@ public class AnimalController {
     private AnimalService animalService;
 
     @PostMapping
-    public void cadastrarAnimal(@RequestBody AnimalRequestDTO data){
-        animalService.cadastrarAnimal(data);
+    public AnimalResponseDTO cadastrarAnimal(@RequestBody AnimalRequestDTO data){
+        return animalService.cadastrarAnimal(data);
     }
 
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @CrossOrigin(origins = "http://localhost:5173", allowedHeaders = "*")
     @GetMapping
     public List<AnimalResponseDTO> getAll(){
         return animalService.getAll();

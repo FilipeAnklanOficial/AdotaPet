@@ -1,3 +1,3 @@
 package com.extensao.adotapet.Enum;
 
-public enum tipoUsuario {ONG, ADOTANTE, ADMINISTRADOR}
+public enum TipoUsuario {ROLE_ONG, ROLE_ADOTANTE, ROLE_ADMINISTRADOR}

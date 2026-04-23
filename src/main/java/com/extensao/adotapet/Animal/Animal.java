@@ -35,6 +35,7 @@ public class Animal {
     private boolean possuiChip;
     private String localizacao;
     private boolean vacinado;
+    //TODO COLOCAR COR
 
     @Enumerated(EnumType.STRING)
     private Especie especie;

@@ -1,11 +1,6 @@
 package com.extensao.adotapet.Animal;
 
-import com.extensao.adotapet.Enum.Especie;
-import com.extensao.adotapet.Enum.Porte;
-import com.extensao.adotapet.Enum.Sexo;
 import com.extensao.adotapet.Enum.Status;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,9 +14,10 @@ public class AnimalService {
     @Autowired
     private AnimalRepository repository;
 
-    public void cadastrarAnimal(AnimalRequestDTO data){
+    public AnimalResponseDTO cadastrarAnimal(AnimalRequestDTO data){
         Animal animalData = new Animal(data);
         repository.save(animalData);
+        return new AnimalResponseDTO(animalData);
     }
 
     public List<AnimalResponseDTO> getAll() {
