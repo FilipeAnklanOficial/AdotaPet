@@ -5,7 +5,6 @@ import com.extensao.adotapet.Enum.Sexo;
 import com.extensao.adotapet.Enum.Especie;
 import com.extensao.adotapet.Enum.Porte;
 import com.extensao.adotapet.Usuario.Usuario;
-import com.extensao.adotapet.UsuarioONG.UsuarioONG;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -34,10 +33,10 @@ public class Animal {
     //TODO COLOCAR COR
 
 
-    //USUARIO ONG RESPONSAVEL
+    //USUARIO RESPONSAVEL
     @ManyToOne
-    @JoinColumn(name = "usuario_ong_id", nullable = false)
-    private UsuarioONG ong;
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private Usuario ong;
 
     @Enumerated(EnumType.STRING)
     private Especie especie;

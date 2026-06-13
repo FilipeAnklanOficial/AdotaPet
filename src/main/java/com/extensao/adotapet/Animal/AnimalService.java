@@ -4,13 +4,14 @@ import com.extensao.adotapet.Enum.Status;
 import com.extensao.adotapet.Enum.TipoUsuario;
 import com.extensao.adotapet.Usuario.Usuario;
 import com.extensao.adotapet.Usuario.UsuarioRepository;
-import com.extensao.adotapet.UsuarioONG.UsuarioONG;
-import com.extensao.adotapet.UsuarioONG.UsuarioONGRepository;
+import com.extensao.adotapet.exception.BadRequestException;
+import com.extensao.adotapet.exception.ForbiddenException;
+import com.extensao.adotapet.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
+
 
 import java.util.List;
 
@@ -21,28 +22,25 @@ public class AnimalService {
     private AnimalRepository repository;
 
     @Autowired
-    private UsuarioONGRepository usuarioONGRepository;
-
-    @Autowired
     private UsuarioRepository usuarioRepository;
 
     public AnimalResponseDTO cadastrarAnimal(AnimalRequestDTO data){
-        String email = SecurityContextHolder.getContext()
-                .getAuthentication()
-                .getName();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-        Usuario usuario = usuarioRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+        Usuario usuario = (Usuario) auth.getPrincipal();
 
-        UsuarioONG ong = usuarioONGRepository.findByUsuario(usuario)
-                .orElseThrow(() -> new RuntimeException("ONG não encontrada para este usuário"));
+        String email = usuario.getEmail();
+
+        usuario = usuarioRepository.findByEmail(email)
+                .orElseThrow(() -> new NotFoundException("Usuário não encontrado"));
+
 
         if (!usuario.getTipoUsuario().equals(TipoUsuario.ROLE_ONG)) {
-            throw new RuntimeException("Apenas ONG pode cadastrar animais");
+            throw new ForbiddenException("Apenas ONG pode cadastrar animais");
         }
 
         Animal animalData = new Animal(data);
-        animalData.setOng(ong);
+        animalData.setOng(usuario);
         repository.save(animalData);
         return new AnimalResponseDTO(animalData);
     }
@@ -56,38 +54,37 @@ public class AnimalService {
 
     public AnimalResponseDTO getById(Long id){
         Animal animal = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Animal não encontrado"));
+                .orElseThrow(() -> new NotFoundException("Animal não encontrado"));
         return new AnimalResponseDTO(animal);
     }
 
     public void deleteById(Long id){
         Animal animal = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Animal não encontrado"));
+                .orElseThrow(() -> new NotFoundException("Animal não encontrado"));
+
         repository.delete(animal);
     }
 
-    @PutMapping("/{id}/inativar")
-    public void inativar(@PathVariable Long id){
+    public void inativar(Long id){
         Animal animal = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Animal não encontrado"));
+                .orElseThrow(() -> new NotFoundException("Animal não encontrado"));
         animal.setStatus(Status.INATIVO);
         repository.save(animal);
     }
 
-    @PutMapping("/{id}/ativar")
-    public void ativar(@PathVariable Long id){
+    public void ativar(Long id){
         Animal animal = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Animal não encontrado"));
+                .orElseThrow(() -> new NotFoundException("Animal não encontrado"));
         animal.setStatus(Status.DISPONIVEL);
         repository.save(animal);
     }
 
     public AnimalResponseDTO atualizaParcial(Long id, AnimalUpdateDTO dto) {
         Animal animal = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Animal não encontrado"));
+                .orElseThrow(() -> new NotFoundException("Animal não encontrado"));
 
         if (animal.getStatus() == Status.ADOTADO || animal.getStatus() == Status.INATIVO) {
-            throw new RuntimeException("Não é possível editar um Animal Adotado ou Inativo");
+            throw new ForbiddenException("Não é possível editar um Animal Adotado ou Inativo");
         }
         if (dto.getNome() != null) {
             animal.setNome(dto.getNome());
@@ -131,6 +128,5 @@ public class AnimalService {
         repository.save(animal);
         return new AnimalResponseDTO(animal);
     }
-
 
 }

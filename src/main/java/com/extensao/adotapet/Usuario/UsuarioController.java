@@ -1,14 +1,13 @@
-package com.extensao.adotapet.UsuarioONG;
+package com.extensao.adotapet.Usuario;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("usuarioOng")
-public class UsuarioONGController {
+@RequestMapping("usuario")
+public class UsuarioController {
 
     @Autowired
-    private UsuarioONGRepository repository;
+    private UsuarioRepository repository;
 }
-
