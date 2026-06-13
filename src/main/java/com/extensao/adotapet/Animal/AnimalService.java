@@ -1,7 +1,13 @@
 package com.extensao.adotapet.Animal;
 
 import com.extensao.adotapet.Enum.Status;
+import com.extensao.adotapet.Enum.TipoUsuario;
+import com.extensao.adotapet.Usuario.Usuario;
+import com.extensao.adotapet.Usuario.UsuarioRepository;
+import com.extensao.adotapet.UsuarioONG.UsuarioONG;
+import com.extensao.adotapet.UsuarioONG.UsuarioONGRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -14,8 +20,29 @@ public class AnimalService {
     @Autowired
     private AnimalRepository repository;
 
+    @Autowired
+    private UsuarioONGRepository usuarioONGRepository;
+
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
     public AnimalResponseDTO cadastrarAnimal(AnimalRequestDTO data){
+        String email = SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getName();
+
+        Usuario usuario = usuarioRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+        UsuarioONG ong = usuarioONGRepository.findByUsuario(usuario)
+                .orElseThrow(() -> new RuntimeException("ONG não encontrada para este usuário"));
+
+        if (!usuario.getTipoUsuario().equals(TipoUsuario.ROLE_ONG)) {
+            throw new RuntimeException("Apenas ONG pode cadastrar animais");
+        }
+
         Animal animalData = new Animal(data);
+        animalData.setOng(ong);
         repository.save(animalData);
         return new AnimalResponseDTO(animalData);
     }
@@ -104,4 +131,6 @@ public class AnimalService {
         repository.save(animal);
         return new AnimalResponseDTO(animal);
     }
+
+
 }

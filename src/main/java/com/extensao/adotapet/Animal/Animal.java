@@ -4,13 +4,8 @@ import com.extensao.adotapet.Enum.Status;
 import com.extensao.adotapet.Enum.Sexo;
 import com.extensao.adotapet.Enum.Especie;
 import com.extensao.adotapet.Enum.Porte;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.extensao.adotapet.UsuarioONG.UsuarioONG;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Table(name = "animal")
@@ -36,6 +31,13 @@ public class Animal {
     private String localizacao;
     private boolean vacinado;
     //TODO COLOCAR COR
+
+
+    //USUARIO ONG RESPONSAVEL
+    @ManyToOne
+    @JoinColumn(name = "usuario_ong_id", nullable = false)
+    private UsuarioONG ong;
+
 
     @Enumerated(EnumType.STRING)
     private Especie especie;
@@ -64,5 +66,4 @@ public class Animal {
         this.sexo = data.sexo();
         this.status = data.status();
     }
-
 }

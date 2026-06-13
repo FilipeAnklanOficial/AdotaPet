@@ -23,8 +23,8 @@ public class Usuario {
     private String endereco;
     private String fotoPerfil;
 
-    @Column(name = "tipo_usuario")
     @Enumerated(EnumType.STRING)
+    @Column(name = "tipo_usuario", nullable = false)
     private TipoUsuario tipoUsuario;
 }
 
