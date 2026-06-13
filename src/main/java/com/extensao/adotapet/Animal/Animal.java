@@ -4,6 +4,7 @@ import com.extensao.adotapet.Enum.Status;
 import com.extensao.adotapet.Enum.Sexo;
 import com.extensao.adotapet.Enum.Especie;
 import com.extensao.adotapet.Enum.Porte;
+import com.extensao.adotapet.Usuario.Usuario;
 import com.extensao.adotapet.UsuarioONG.UsuarioONG;
 import jakarta.persistence.*;
 import lombok.*;
@@ -38,7 +39,6 @@ public class Animal {
     @JoinColumn(name = "usuario_ong_id", nullable = false)
     private UsuarioONG ong;
 
-
     @Enumerated(EnumType.STRING)
     private Especie especie;
 
@@ -66,4 +66,5 @@ public class Animal {
         this.sexo = data.sexo();
         this.status = data.status();
     }
+
 }
