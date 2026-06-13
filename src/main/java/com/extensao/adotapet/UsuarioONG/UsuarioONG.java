@@ -1,16 +1,16 @@
 package com.extensao.adotapet.UsuarioONG;
 
+import com.extensao.adotapet.Animal.Animal;
+import com.extensao.adotapet.Usuario.Usuario;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 
-@Entity(name = "usuarioOng")
-@Table(name = "usuarioOng")
+import java.util.List;
+
+@Table(name = "usuario_ong")
+@Entity(name = "usuario_ong")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -23,5 +23,12 @@ public class UsuarioONG {
     private String email;
     private String telefone;
     private String endereco;
+
+    @OneToMany(mappedBy = "ong")
+    private List<Animal> animais;
+
+    @OneToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
 
 }
