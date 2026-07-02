@@ -17,5 +17,6 @@ public record AnimalRequestDTO(String nome,
                                Especie especie,
                                Porte porte,
                                Sexo sexo,
-                               Status status) {
+                               Status status,
+                               String cor) {
 }

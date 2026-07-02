@@ -20,7 +20,8 @@ public record AnimalResponseDTO(Long id,
                                 Especie especie,
                                 Porte porte,
                                 Sexo sexo,
-                                Status status) {
+                                Status status,
+                                String cor) {
     public AnimalResponseDTO(Animal animal){
         this(animal.getId(),
                 animal.getNome(),
@@ -37,6 +38,7 @@ public record AnimalResponseDTO(Long id,
                 animal.getEspecie(),
                 animal.getPorte(),
                 animal.getSexo(),
-                animal.getStatus());
+                animal.getStatus(),
+                animal.getCor());
     }
 }

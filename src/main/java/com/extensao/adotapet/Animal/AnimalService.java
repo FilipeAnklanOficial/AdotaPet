@@ -125,6 +125,9 @@ public class AnimalService {
         if (dto.getStatus() != null){
             animal.setStatus(dto.getStatus());
         }
+        if (dto.getCor() != null){
+            animal.setCor(dto.getCor());
+        }
         repository.save(animal);
         return new AnimalResponseDTO(animal);
     }

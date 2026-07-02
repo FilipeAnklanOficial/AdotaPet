@@ -77,4 +77,14 @@ public class GlobalExceptionHandler {
         );
     }
 
+    @ExceptionHandler(BusinessException.class)
+    public ResponseEntity<ErrorResponse> handleBusiness(BusinessException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(new ErrorResponse(
+                        409,
+                        ex.getMessage(),
+                        LocalDateTime.now()
+                ));
+    }
+
 }

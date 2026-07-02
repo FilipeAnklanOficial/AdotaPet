@@ -30,7 +30,7 @@ public class Animal {
     private boolean possuiChip;
     private String localizacao;
     private boolean vacinado;
-    //TODO COLOCAR COR
+    private String cor;
 
 
     //USUARIO RESPONSAVEL
@@ -64,6 +64,7 @@ public class Animal {
         this.porte = data.porte();
         this.sexo = data.sexo();
         this.status = data.status();
+        this.cor = data.cor();
     }
 
 }
