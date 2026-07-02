@@ -5,7 +5,6 @@ import com.extensao.adotapet.Enum.Sexo;
 import com.extensao.adotapet.Enum.Especie;
 import com.extensao.adotapet.Enum.Porte;
 import com.extensao.adotapet.Usuario.Usuario;
-import com.extensao.adotapet.UsuarioONG.UsuarioONG;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -31,13 +30,13 @@ public class Animal {
     private boolean possuiChip;
     private String localizacao;
     private boolean vacinado;
-    //TODO COLOCAR COR
+    private String cor;
 
 
-    //USUARIO ONG RESPONSAVEL
+    //USUARIO RESPONSAVEL
     @ManyToOne
-    @JoinColumn(name = "usuario_ong_id", nullable = false)
-    private UsuarioONG ong;
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private Usuario ong;
 
     @Enumerated(EnumType.STRING)
     private Especie especie;
@@ -65,6 +64,7 @@ public class Animal {
         this.porte = data.porte();
         this.sexo = data.sexo();
         this.status = data.status();
+        this.cor = data.cor();
     }
 
 }

@@ -22,6 +22,7 @@ public class AnimalUpdateDTO {
     private Boolean possuiChip;
     private String localizacao;
     private Boolean vacinado;
+    private String cor;
 
     @Enumerated(EnumType.STRING)
     private Especie especie;

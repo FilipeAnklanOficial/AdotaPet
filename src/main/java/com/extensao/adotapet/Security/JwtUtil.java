@@ -39,10 +39,4 @@ public class JwtUtil {
                 .getBody()
                 .getSubject();
     }
-
-    public String getEmailLogado() {
-        return SecurityContextHolder.getContext()
-                .getAuthentication()
-                .getName();
-    }
 }

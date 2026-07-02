@@ -18,7 +18,6 @@ public class AnimalController {
         return animalService.cadastrarAnimal(data);
     }
 
-    @CrossOrigin(origins = "http://localhost:5173", allowedHeaders = "*")
     @GetMapping
     public List<AnimalResponseDTO> getAll(){
         return animalService.getAll();
