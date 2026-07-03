@@ -18,6 +18,7 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    private String nomeOng;
     private String nome;
 
     @Column(unique = true, nullable = false)

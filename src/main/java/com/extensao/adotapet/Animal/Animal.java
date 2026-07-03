@@ -1,9 +1,6 @@
 package com.extensao.adotapet.Animal;
 
-import com.extensao.adotapet.Enum.Status;
-import com.extensao.adotapet.Enum.Sexo;
-import com.extensao.adotapet.Enum.Especie;
-import com.extensao.adotapet.Enum.Porte;
+import com.extensao.adotapet.Enum.*;
 import com.extensao.adotapet.Usuario.Usuario;
 import jakarta.persistence.*;
 import lombok.*;
@@ -23,7 +20,10 @@ public class Animal {
     private long id;
     private String nome;
     private String raca;
-    private double idade;
+
+    @Enumerated(EnumType.STRING)
+    private Idade idade;
+
     private String historicoSaude;
     private String comportamento;
     private String fotos;

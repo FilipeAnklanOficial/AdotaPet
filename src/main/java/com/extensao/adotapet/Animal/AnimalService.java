@@ -4,10 +4,12 @@ import com.extensao.adotapet.Enum.Status;
 import com.extensao.adotapet.Enum.TipoUsuario;
 import com.extensao.adotapet.Usuario.Usuario;
 import com.extensao.adotapet.Usuario.UsuarioRepository;
+import com.extensao.adotapet.Utils.Util;
 import com.extensao.adotapet.exception.BadRequestException;
 import com.extensao.adotapet.exception.ForbiddenException;
 import com.extensao.adotapet.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -40,13 +42,55 @@ public class AnimalService {
         }
 
         Animal animalData = new Animal(data);
+        animalData.setCor(Util.normalizar(data.cor()));
+        animalData.setRaca(Util.normalizar(data.raca()));
+        animalData.setLocalizacao(Util.normalizar(data.localizacao()));
         animalData.setOng(usuario);
         repository.save(animalData);
         return new AnimalResponseDTO(animalData);
     }
 
     public List<AnimalResponseDTO> getAll() {
+
         return repository.findAll()
+                .stream()
+                .map(AnimalResponseDTO::new)
+                .toList();
+    }
+
+    public List<AnimalResponseDTO> buscar(AnimalFiltroDTO filtro) {
+
+        Specification<Animal> spec = Specification
+                .where(AnimalSpecification.disponivel());
+
+        if (filtro.especie() != null)
+            spec = spec.and(AnimalSpecification.especie(filtro.especie()));
+
+        if (filtro.raca() != null && !filtro.raca().isBlank())
+            spec = spec.and(AnimalSpecification.raca(filtro.raca()));
+
+        if (filtro.sexo() != null)
+            spec = spec.and(AnimalSpecification.sexo(filtro.sexo()));
+
+        if (filtro.cor() != null && !filtro.cor().isBlank())
+            spec = spec.and(AnimalSpecification.cor(filtro.cor()));
+
+        if (filtro.idade() != null)
+            spec = spec.and(AnimalSpecification.idade(filtro.idade()));
+
+        if (filtro.porte() != null)
+            spec = spec.and(AnimalSpecification.porte(filtro.porte()));
+
+        if (filtro.possuiChip() != null)
+            spec = spec.and(AnimalSpecification.possuiChip(filtro.possuiChip()));
+
+        if (filtro.vacinado() != null)
+            spec = spec.and(AnimalSpecification.vacinado(filtro.vacinado()));
+
+        if (filtro.localizacao() != null && !filtro.localizacao().isBlank())
+            spec = spec.and(AnimalSpecification.localizacao(filtro.localizacao()));
+
+        return repository.findAll(spec)
                 .stream()
                 .map(AnimalResponseDTO::new)
                 .toList();
@@ -89,8 +133,8 @@ public class AnimalService {
         if (dto.getNome() != null) {
             animal.setNome(dto.getNome());
         }
-        if (dto.getRaca() != null) {
-            animal.setRaca(dto.getRaca());
+        if (dto.getRaca() != null){
+            animal.setRaca(Util.normalizar(dto.getRaca()));
         }
         if (dto.getIdade() != null) {
             animal.setIdade(dto.getIdade());
@@ -107,8 +151,8 @@ public class AnimalService {
         if (dto.getPossuiChip() != null) {
             animal.setPossuiChip(dto.getPossuiChip());
         }
-        if (dto.getLocalizacao() != null) {
-            animal.setLocalizacao(dto.getLocalizacao());
+        if (dto.getLocalizacao() != null){
+            animal.setLocalizacao(Util.normalizar(dto.getLocalizacao()));
         }
         if (dto.getVacinado() != null) {
             animal.setVacinado(dto.getVacinado());
@@ -126,7 +170,7 @@ public class AnimalService {
             animal.setStatus(dto.getStatus());
         }
         if (dto.getCor() != null){
-            animal.setCor(dto.getCor());
+            animal.setCor(Util.normalizar(dto.getCor()));
         }
         repository.save(animal);
         return new AnimalResponseDTO(animal);

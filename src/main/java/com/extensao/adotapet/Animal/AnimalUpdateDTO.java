@@ -1,9 +1,6 @@
 package com.extensao.adotapet.Animal;
 
-import com.extensao.adotapet.Enum.Especie;
-import com.extensao.adotapet.Enum.Porte;
-import com.extensao.adotapet.Enum.Sexo;
-import com.extensao.adotapet.Enum.Status;
+import com.extensao.adotapet.Enum.*;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import lombok.Getter;
@@ -15,7 +12,7 @@ public class AnimalUpdateDTO {
     private long id;
     private String nome;
     private String raca;
-    private Double idade;
+    private Idade idade;
     private String historicoSaude;
     private String comportamento;
     private String fotos;
