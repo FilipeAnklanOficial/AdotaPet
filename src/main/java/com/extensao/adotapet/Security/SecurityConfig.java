@@ -3,6 +3,7 @@ package com.extensao.adotapet.Security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -35,6 +36,9 @@ public class SecurityConfig {
 
                         // público (visualização de animais)
                         .requestMatchers(org.springframework.http.HttpMethod.GET, "/animal/**").permitAll()
+
+                        //Libera acesso ao POST buscar
+                        .requestMatchers(HttpMethod.POST, "/animal/buscar").permitAll()
 
                         // tudo o resto precisa login
                         .anyRequest().authenticated()
