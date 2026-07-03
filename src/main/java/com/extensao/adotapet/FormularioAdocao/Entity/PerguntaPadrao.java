@@ -17,6 +17,7 @@ public class PerguntaPadrao {
     private Long id;
 
     private String texto;
+    private Boolean ativo;
 
     @Enumerated(EnumType.STRING)
     private TipoPergunta tipo;

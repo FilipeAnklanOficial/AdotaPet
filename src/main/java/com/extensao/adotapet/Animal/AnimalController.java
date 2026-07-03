@@ -18,8 +18,13 @@ public class AnimalController {
         return animalService.cadastrarAnimal(data);
     }
 
+    @PostMapping("/buscar")
+    public List<AnimalResponseDTO> buscar(@RequestBody AnimalFiltroDTO filtro) {
+        return animalService.buscar(filtro);
+    }
+
     @GetMapping
-    public List<AnimalResponseDTO> getAll(){
+    public List<AnimalResponseDTO> getAll() {
         return animalService.getAll();
     }
 

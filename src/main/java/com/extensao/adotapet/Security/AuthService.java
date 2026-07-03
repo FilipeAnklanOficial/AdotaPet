@@ -53,6 +53,9 @@ public class AuthService {
         repository.save(usuario);
     }
 
+    //TODO USUARIO, NOME, CPF, EMAIL, SENHA, CONFIRMASENHA, TELEFONE, DT NASCIMENTO
+    //TODO USUARIOONG NOME DO RESPONSÁVEL, EMAIL, NOME DA ONG, CNPJ, SENHA E CONFIRMAR SENHA, TELEFONE, DATA DE NASCIMENTO DO RESPONSÁVEL
+
 
     public String login(String email, String senha) {
         email = email.toLowerCase().trim();

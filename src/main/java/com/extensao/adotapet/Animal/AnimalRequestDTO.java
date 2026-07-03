@@ -1,13 +1,10 @@
 package com.extensao.adotapet.Animal;
 
-import com.extensao.adotapet.Enum.Especie;
-import com.extensao.adotapet.Enum.Porte;
-import com.extensao.adotapet.Enum.Sexo;
-import com.extensao.adotapet.Enum.Status;
+import com.extensao.adotapet.Enum.*;
 
 public record AnimalRequestDTO(String nome,
                                String raca,
-                               double idade,
+                               Idade idade,
                                String historicoSaude,
                                String comportamento,
                                String fotos,
