@@ -6,9 +6,12 @@ const { BASE_API } = variables;
 
 export const apiService = axios.create({
   baseURL: BASE_API,
-  headers: {
-    common: {
-      [REQUEST_HEADER_AUTH_KEY]: TOKEN_TYPE,
-    },
-  },
+});
+
+apiService.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    config.headers[REQUEST_HEADER_AUTH_KEY] = `${TOKEN_TYPE}${token}`;
+  }
+  return config;
 });

@@ -17,7 +17,7 @@
             
             align-items: center;
             flex-direction: column;
-            background-color: #f4f7fb;
+            background-color: white;
         }
 
         header{
@@ -56,7 +56,7 @@
         }
 
         div#container{
-            background-color: red;
+            background-color: white;
             display: flex;
             justify-content: center;
 
@@ -110,7 +110,7 @@
             transition: 0.3s;
             opacity: 0.8;
 
-            border-width: 2px;
+            border-width: 3px;
             border-style: solid;
             border-color: transparent;   
         }
@@ -120,7 +120,7 @@
         }
 
         img.miniatura.ativa{
-            border-width: 2px;
+            border-width: 3px;
             border-style: solid;
             border-color: #36C3FF;
             opacity: 1;
@@ -241,7 +241,7 @@
                 <img id="imagemGrande" src="#" alt="Foto principal do gato">
             </div>
             <div id="cardFotoAnimal">
-                <img class="miniatura" src="imagens/DetalhesAnimal/cat1.jpeg" class="ativa" onclick="trocarImagem(this)">
+                <img class="miniatura ativa" src="imagens/DetalhesAnimal/cat1.jpeg" onclick="trocarImagem(this)">
                 <img class="miniatura" src="imagens/DetalhesAnimal/cat2.jpeg" onclick="trocarImagem(this)">
                 <img class="miniatura" src="imagens/DetalhesAnimal/cat3.jpeg" onclick="trocarImagem(this)">
             </div>
@@ -311,6 +311,14 @@
       // Adiciona na clicada
       elemento.classList.add("ativa");
     }
+
+    // Carrega a primeira imagem ao abrir a página
+    document.addEventListener("DOMContentLoaded", function() {
+      const primeiraImagem = document.querySelector("img.miniatura");
+      if (primeiraImagem) {
+        trocarImagem(primeiraImagem);
+      }
+    });
   </script>
 </body>
 </html>
