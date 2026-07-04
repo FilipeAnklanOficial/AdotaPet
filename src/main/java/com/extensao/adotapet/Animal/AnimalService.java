@@ -52,7 +52,7 @@ public class AnimalService {
 
     public List<AnimalResponseDTO> getAll() {
 
-        return repository.findAll()
+        return repository.findByStatus(Status.DISPONIVEL)
                 .stream()
                 .map(AnimalResponseDTO::new)
                 .toList();
